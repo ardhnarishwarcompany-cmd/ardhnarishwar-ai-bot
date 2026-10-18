@@ -1,0 +1,89 @@
+/* Entry inquiry popup (Client / Candidate) */
+.eip-overlay {
+  position: fixed; inset: 0; z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; overflow-y: auto;
+  background: rgba(40, 27, 61, 0.55);
+  backdrop-filter: blur(6px);
+  animation: eip-fade .25s ease both;
+}
+.eip-modal {
+  position: relative; width: min(100%, 560px); margin: auto;
+  background: #fbf8f2; color: #281b3d;
+  border: 1px solid rgba(40, 27, 61, 0.12); border-radius: 24px;
+  padding: 30px 28px 26px;
+  box-shadow: 0 30px 80px -20px rgba(40, 27, 61, 0.45);
+  animation: eip-pop .3s cubic-bezier(.23, 1, .32, 1) both;
+}
+.eip-close {
+  position: absolute; top: 14px; right: 14px; width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid rgba(40, 27, 61, 0.15);
+  background: transparent; color: inherit; cursor: pointer; transition: background .2s;
+}
+.eip-close:hover { background: rgba(40, 27, 61, 0.08); }
+.eip-head { padding-right: 36px; margin-bottom: 18px; }
+.eip-kicker { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #c99b61; margin-bottom: 8px; }
+.eip-head h2 { margin: 0; font-size: 26px; line-height: 1.15; letter-spacing: -.02em; }
+.eip-head p { margin: 8px 0 0; font-size: 14.5px; color: #786c87; }
+
+.eip-tabs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px;
+  margin-bottom: 18px; border-radius: 99px; background: rgba(40, 27, 61, 0.07);
+}
+.eip-tab {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 12px; border: 0; border-radius: 99px; background: transparent;
+  color: #675b77; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .2s;
+}
+.eip-tab.is-active { background: #281b3d; color: #fff; box-shadow: 0 6px 16px -8px rgba(40, 27, 61, .6); }
+
+.eip-form { display: grid; gap: 12px; }
+.eip-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.eip-form label { display: grid; gap: 6px; font-size: 12.5px; font-weight: 700; color: rgba(40, 27, 61, .8); }
+.eip-form input, .eip-form select, .eip-form textarea {
+  width: 100%; padding: 11px 13px; font-size: 14.5px; font-weight: 400; color: #281b3d;
+  background: #fff; border: 1px solid rgba(40, 27, 61, 0.15); border-radius: 12px; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.eip-form textarea { resize: vertical; min-height: 78px; }
+.eip-form input:focus, .eip-form select:focus, .eip-form textarea:focus {
+  border-color: #c99b61; box-shadow: 0 0 0 4px rgba(201, 155, 97, .18);
+}
+.eip-submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px 18px; border: 0; border-radius: 99px;
+  background: #e2925f; color: #281b3d; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.eip-submit:hover { background: #c9743f; }
+.eip-submit:disabled { opacity: .6; cursor: not-allowed; }
+.eip-error { padding: 10px 12px; border-radius: 10px; font-size: 13px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+.eip-success { text-align: center; padding: 14px 0 6px; display: grid; gap: 10px; justify-items: center; }
+.eip-success-icon { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: #dcfce7; color: #15803d; }
+.eip-success h3 { margin: 4px 0 0; font-size: 22px; }
+.eip-success p { margin: 0 0 8px; color: #786c87; font-size: 14.5px; }
+
+/* Dark theme */
+html.dark .eip-modal, [data-theme="dark"] .eip-modal { background: #1d1629; color: #f3eefb; border-color: rgba(255, 255, 255, .12); }
+html.dark .eip-head p, [data-theme="dark"] .eip-head p, html.dark .eip-success p, [data-theme="dark"] .eip-success p { color: #b3a8c4; }
+html.dark .eip-tabs, [data-theme="dark"] .eip-tabs { background: rgba(255, 255, 255, .08); }
+html.dark .eip-tab, [data-theme="dark"] .eip-tab { color: #cfc5e0; }
+html.dark .eip-tab.is-active, [data-theme="dark"] .eip-tab.is-active { background: #c99b61; color: #281b3d; }
+html.dark .eip-form label, [data-theme="dark"] .eip-form label { color: #e3dbf0; }
+html.dark .eip-form input, html.dark .eip-form select, html.dark .eip-form textarea,
+[data-theme="dark"] .eip-form input, [data-theme="dark"] .eip-form select, [data-theme="dark"] .eip-form textarea {
+  background: #2a2039; color: #f3eefb; border-color: rgba(255, 255, 255, .16);
+}
+html.dark .eip-close:hover, [data-theme="dark"] .eip-close:hover { background: rgba(255, 255, 255, .1); }
+html.dark .eip-close, [data-theme="dark"] .eip-close { border-color: rgba(255, 255, 255, .2); }
+
+@media (max-width: 560px) {
+  .eip-modal { padding: 26px 18px 20px; border-radius: 20px; }
+  .eip-row { grid-template-columns: 1fr; }
+  .eip-head h2 { font-size: 22px; }
+}
+@keyframes eip-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes eip-pop { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .eip-overlay, .eip-modal { animation: none; } }
